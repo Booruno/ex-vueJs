@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <title>Calculadora Historico VueJs</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<div class="container" id="app">
+    <h1>Calculadora com Historico</h1>
+    <form>
+        <div class="form-group">
+            <label for="numero1">Insira o primeiro numero: </label>
+            <input type="text" name="numero1" id="numero1" class="form-control" placeholder="Primeiro numero"
+                v-model.number="numero1">
+
+        </div>
+
+
+        <select v-model.number="operacao" class="form-control" id="operacao">
+            <option value="">Selecione a operação</option>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+
+        </select>
+        <div class="form-group">
+            <label for="numero2">Insira o segundo numero: </label>
+            <input type="text" name="numero2" id="numero2" class="form-control" placeholder="Segundo numero"
+                v-model.number="numero2">
+
+        </div>
+
+        <button class="btn btn-success btn-block" v-on:click.prevent="calcular()">Calcular</button>
+        <!-- prevent nao vai atualizar a pagina -->
+
+        <div class="form-group">
+            <label for="resultado">Resultado: </label>
+            <input type="text" name="restulado" id="resultado" class="form-control " placeholder="Resultado"
+                v-model="resultado" readonly>
+
+        </div>
+
+        <ul>
+            <li v-for="item in historico">{{item}}</li>
+        </ul>
+    </form>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            numero1: null,
+            numero2: null,
+            resultado: null,
+            operacao: '',
+            historico: []
+
+        },
+        methods: {
+            calcular: function () {
+
+
+                switch (this.operacao) {
+                    case '+':
+                        this.resultado = this.numero1 + this.numero2
+                        var conta = this.numero1 + '+' + this.numero2 + '=' + this.resultado;
+                        this.historico.push(conta);
+                        break;
+                    case '-':
+                        this.resultado = this.numero1 - this.numero2
+                        var conta = this.numero1 + '-' + this.numero2 + '=' + this.resultado;
+                        this.historico.push(conta);
+                        break;
+                    case '*':
+                        this.resultado = this.numero1 * this.numero2
+                        var conta = this.numero1 + '*' + this.numero2 + '=' + this.resultado;
+                        this.historico.push(conta);
+                        break;
+                    case '/':
+                        this.resultado = this.numero1 / this.numero2
+                        var conta = this.numero1 + '/' + this.numero2 + '=' + this.resultado;
+                        this.historico.push(conta);
+                        break;
+
+
+                }
+            }
+
+        }
+    });
+</script>
+
+
+
+<body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
